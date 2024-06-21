@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -50,6 +51,17 @@ class _HomeState extends State<Home> {
           itemCount: imagePaths.length,
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          final ImagePicker picker = ImagePicker();
+          final List<XFile> images = await picker.pickMultiImage(imageQuality: 100);
+          setState(() {
+            imagePaths.addAll(images.map((e) => e.path).toList());
+          });
+
+        },
+        child: Icon(Icons.image),
+      )
     );
   }
 }
